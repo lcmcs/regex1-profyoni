@@ -6,15 +6,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MyArrayListTest {
 
+    private MyArrayList mal = new MyArrayList();
     @Test
     void size() {
-        MyArrayList mal = new MyArrayList();
         assertEquals(0, mal.size());
     }
 
     @Test
     void size1() {
-        MyArrayList mal = new MyArrayList();
         mal.add("A");
         assertEquals(1, mal.size());
     }
@@ -22,7 +21,7 @@ class MyArrayListTest {
 
     @Test
     void size11() {
-        MyArrayList mal = new MyArrayList();
+
         for (int i=0;i<11;i++)
             mal.add("" + i);
         assertEquals(11, mal.size());
@@ -38,9 +37,24 @@ class MyArrayListTest {
 
     @Test
     void add() {
+        mal.add(3 + "");
     }
 
     @Test
     void remove() {
     }
+
+    @Test
+    void getExceptionTest() {
+        try {
+            mal.get(0);
+        }
+        catch(IndexOutOfBoundsException e)
+        {
+            return;
+        }
+        fail("did not throw exception");
+    }
+
+
 }

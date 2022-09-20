@@ -9,6 +9,15 @@ public class MyArrayList implements List<String> {
     private String[] backingStore = new String[10];
     private int ip = 0; // insertionPoint
 
+    public MyArrayList()
+    {
+    }
+
+    public MyArrayList(int initialCapacity)
+    {
+        backingStore = new String[initialCapacity];
+    }
+
     @Override
     public int size() {
         return ip;
@@ -52,9 +61,7 @@ public class MyArrayList implements List<String> {
 
     private void growBackingStore() {
         String[] newBs = new String[2 * backingStore.length + 1];
-        for (int i=0;i<backingStore.length;i++){
-            newBs[i] = backingStore[i];
-         }
+        System.arraycopy(backingStore, 0, newBs, 0, backingStore.length);
         backingStore = newBs;
 
     }
@@ -96,7 +103,10 @@ public class MyArrayList implements List<String> {
 
     @Override
     public String get(int index) {
-        return null;
+        if (index < 0 || index >= ip)
+            throw new IndexOutOfBoundsException(
+                    String.format("size is %d, Index used was %d",  size(), index));
+        return backingStore[index];
     }
 
     @Override
