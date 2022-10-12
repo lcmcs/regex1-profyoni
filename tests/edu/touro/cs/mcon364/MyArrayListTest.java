@@ -2,6 +2,8 @@ package edu.touro.cs.mcon364;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Iterator;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class MyArrayListTest {
@@ -56,5 +58,13 @@ class MyArrayListTest {
         fail("did not throw exception");
     }
 
-
+    @Test
+    void iterator() {
+        mal.add("1");mal.add("2");
+        int i = 1;
+        for (String s : mal) {
+            assertEquals(i + "", s);
+            i++;
+        }
+    }
 }

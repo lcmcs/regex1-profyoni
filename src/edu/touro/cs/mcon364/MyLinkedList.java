@@ -1,26 +1,24 @@
 package edu.touro.cs.mcon364;
 
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class MyArrayList implements List<String>, Iterable<String> {
-    private String[] backingStore = new String[10];
-    private int ip = 0; // insertionPoint
+public class MyLinkedList implements List<String> {
 
-    public MyArrayList()
-    {
-    }
-
-    public MyArrayList(int initialCapacity)
-    {
-        backingStore = new String[initialCapacity];
-    }
 
     @Override
     public int size() {
-        return ip;
+        Node current = head;
+        int count=0;
+        while (current != null)
+        {
+            count++;
+            current  = current.next;
+        }
+        return count;
     }
 
     @Override
@@ -35,27 +33,7 @@ public class MyArrayList implements List<String>, Iterable<String> {
 
     @Override
     public Iterator<String> iterator() {
-        return new MyArrayListIterator();
-    }
-
-    // private classes may only be declared (defined) within another class
-    // inner class = class in an (outer) class
-    // accessible only in outer class
-    // designed so that the inner class is self-contained, yet has access to outer class
-    // Principle of Least Privilege = grant as little access as possible - as much as needed
-    private class MyArrayListIterator implements Iterator<String> { // inner class
-        private int preIndex = 0;
-
-        @Override
-        public boolean hasNext() {
-            return this.preIndex < MyArrayList.this.ip;
-        }
-
-        @Override
-        public String next() {
-            return MyArrayList.this.backingStore[this.preIndex++];
-        }
-
+        return null;
     }
 
     @Override
@@ -68,22 +46,22 @@ public class MyArrayList implements List<String>, Iterable<String> {
         return null;
     }
 
-    @Override
-    public boolean add(String s) {
-        if (ip >= backingStore.length)
-            growBackingStore();
-
-        backingStore[ip] = s;
-        ip++;
-
-        return true;
+    private class Node
+    {
+        private String data;
+        private Node next;
     }
 
-    private void growBackingStore() {
-        String[] newBs = new String[2 * backingStore.length + 1];
-        System.arraycopy(backingStore, 0, newBs, 0, backingStore.length);
-        backingStore = newBs;
+    private Node head;
 
+    @Override
+    public boolean add(String s) {
+        Node node = new Node();
+        node.data = s;
+        node.next = null;
+
+        head = node;
+        return true;
     }
 
     @Override
@@ -96,15 +74,11 @@ public class MyArrayList implements List<String>, Iterable<String> {
         return false;
     }
 
+
+
     @Override
     public boolean addAll(Collection<? extends String> c) {
-        if (c.size() == 0) // quick and dirty approach - not recommended
-            return false;
-
-        for (String s : c) {
-            add(s);
-        }
-        return true;
+        return false;
     }
 
     @Override
@@ -129,10 +103,7 @@ public class MyArrayList implements List<String>, Iterable<String> {
 
     @Override
     public String get(int index) {
-        if (index < 0 || index >= ip)
-            throw new IndexOutOfBoundsException(
-                    String.format("size is %d, Index used was %d",  size(), index));
-        return backingStore[index];
+        return null;
     }
 
     @Override
@@ -170,6 +141,7 @@ public class MyArrayList implements List<String>, Iterable<String> {
         return null;
     }
 
+
     @Override
     public List<String> subList(int fromIndex, int toIndex) {
         return null;
@@ -177,5 +149,3 @@ public class MyArrayList implements List<String>, Iterable<String> {
 
 
 }
-
-

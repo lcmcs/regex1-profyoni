@@ -1,5 +1,8 @@
 package edu.touro.cs.mcon364;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -52,5 +55,24 @@ class MainTest {
         // Assert
         assertEquals(1, map.get("king"));
         assertEquals(2, map.get("the"));
+    }
+
+    class Dummy implements Iterable<String>{
+        @Override
+        public Iterator<String> iterator() {
+            return null;
+        }
+    }
+    @org.junit.jupiter.api.Test
+    void languageTest() {
+        List<String> list = new ArrayList<>();
+        list.add("A"); list.add("A");
+
+        //String list = "Bob";
+        //Dummy list = new Dummy();
+        for (Iterator<String> iterator = list.iterator(); iterator.hasNext(); ) {
+            String s = iterator.next();
+            assertEquals("A", s);
+        }
     }
 }
